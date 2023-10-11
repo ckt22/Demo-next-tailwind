@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Head from 'next/head'
 
 const Recipe: NextPage = () => {
@@ -31,6 +32,14 @@ const Recipe: NextPage = () => {
         disabled: false,
       },
     ]);
+
+    useEffect(() => {
+      const fetchQuestions = async () => {
+        const response = await axios.get('https://api.example.com/questions');
+        setQuestions(response.data.data);
+      }
+      fetchQuestions();
+    }, []);
 
     const handleOptionSelect = (questionId: number, option: string) => {
       setQuestions((prevState) =>
