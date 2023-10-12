@@ -66,7 +66,6 @@ const Recipe: NextPage = () => {
                   key={option}
                   onClick={() => handleOptionSelect(question.id, option)}
                   style={{ cursor: 'pointer' }}
-                  disabled={question.disabled}
                 >
                   {option}
                 </li>
@@ -91,7 +90,7 @@ const Recipe: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Amazing Recipe</title>
+        <title>Quiz</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Body */}
