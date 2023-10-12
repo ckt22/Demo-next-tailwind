@@ -6,44 +6,23 @@ import Head from 'next/head'
 const Recipe: NextPage = () => {
 
   const Quiz: React.FC = () => {
-    const [questions, setQuestions] = useState([
-      {
-        id: 1,
-        question: 'What is the capital of France?',
-        options: ['Berlin', 'Madrid', 'Paris', 'London'],
-        correct_answer: 'Paris',
-        userAnswer: '',
-        disabled: false,
-      },
-      {
-        id: 2,
-        question: 'Which planet is known as the Red Planet?',
-        options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
-        correct_answer: 'Mars',
-        userAnswer: '',
-        disabled: false,
-      },
-      {
-        id: 3,
-        question: 'What is 2 + 2?',
-        options: ['3', '4', '5', '6'],
-        correct_answer: '4',
-        userAnswer: '',
-        disabled: false,
-      },
-    ]);
+    const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
       const fetchQuestions = async () => {
-        const response = await axios.get('https://api.example.com/questions');
-        setQuestions(response.data.data);
+        try {
+          const response = await axios.get('https://quiz-app-backend.cowcow02.repl.co/quizzes/2/questions/');
+          setQuestions(response.data.data);
+        } catch (e) {
+          console.log(e);
+        }
       }
       fetchQuestions();
     }, []);
 
     const handleOptionSelect = (questionId: number, option: string) => {
-      setQuestions((prevState) =>
-        prevState.map((question) =>
+      setQuestions((prevState: any) =>
+        prevState.map((question: any) =>
           question.id === questionId
             ? {
               ...question,
@@ -57,6 +36,7 @@ const Recipe: NextPage = () => {
 
     return (
       <div>
+        {questions.length === 0 && <div>Loading questions...</div>}
         {questions.map((question: any) => (
           <div key={question.id}>
             <h3>{question.question}</h3>
